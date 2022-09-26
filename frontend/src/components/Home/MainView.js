@@ -92,6 +92,7 @@ const MainView = (props) => {
  
   return (
 		<div>
+			<Search searchByTitle={props.searchByTitle} />
 			<div className="feed-toggle">
 				<ul className="nav nav-tabs">
 					<YourFeedTab
@@ -105,8 +106,6 @@ const MainView = (props) => {
 					<TagFilterTab tag={props.tag} />
 				</ul>
 			</div>
-
-			<Search  searchByTitle={props.searchByTitle} />
 
 			<ItemList
 				pager={props.pager}

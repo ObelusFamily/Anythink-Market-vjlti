@@ -60,7 +60,6 @@ const reducer = (state = {}, action) => {
 		case HOME_PAGE_UNLOADED:
 			return {};
 		case CHANGE_TAB:
-		case SEARCH_ITEMS:
 			return {
 				...state,
 				pager: action.pager,
@@ -70,14 +69,14 @@ const reducer = (state = {}, action) => {
 				currentPage: 0,
 				tag: null,
 			};
-    case SEARCH_ITEMS:
-      	return {
-					...state,
-					pager: action.pager,
-					items: action.payload.items,
-					itemsCount: action.payload.itemsCount,
-					currentPage: 0,
-				};
+		case SEARCH_ITEMS:
+			return {
+				...state,
+				pager: action.pager,
+				items: action.payload.items,
+				itemsCount: action.payload.itemsCount,
+				currentPage: 0,
+			};
 		case PROFILE_PAGE_LOADED:
 		case PROFILE_FAVORITES_PAGE_LOADED:
 			return {
