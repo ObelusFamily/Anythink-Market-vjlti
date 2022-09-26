@@ -5,58 +5,58 @@ import Tags from "./Tags";
 import agent from "../../agent";
 import { connect } from "react-redux";
 import {
-	HOME_PAGE_LOADED,
-	HOME_PAGE_UNLOADED,
-	APPLY_TAG_FILTER,
-	SEARCH_ITEMS,
+  HOME_PAGE_LOADED,
+  HOME_PAGE_UNLOADED,
+  APPLY_TAG_FILTER,
+  SEARCH_ITEMS,
 } from "../../constants/actionTypes";
 
 const Promise = global.Promise;
 
 const mapStateToProps = (state) => ({
-	...state.home,
-	appName: state.common.appName,
-	token: state.common.token,
+  ...state.home,
+  appName: state.common.appName,
+  token: state.common.token,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	onClickTag: (tag, pager, payload) =>
-		dispatch({ type: APPLY_TAG_FILTER, tag, pager, payload }),
-	onLoad: (tab, pager, payload) =>
-		dispatch({ type: HOME_PAGE_LOADED, tab, pager, payload }),
-	searchByTitle: (payload, pager, tab) =>
-		dispatch({ type: SEARCH_ITEMS, payload, pager, tab }),
-	onUnload: () => dispatch({ type: HOME_PAGE_UNLOADED }),
+  onClickTag: (tag, pager, payload) =>
+    dispatch({ type: APPLY_TAG_FILTER, tag, pager, payload }),
+  onLoad: (tab, pager, payload) =>
+    dispatch({ type: HOME_PAGE_LOADED, tab, pager, payload }),
+  searchByTitle: (payload, pager, tab) =>
+    dispatch({ type: SEARCH_ITEMS, payload, pager, tab }),
+  onUnload: () => dispatch({ type: HOME_PAGE_UNLOADED }),
 });
 
 class Home extends React.Component {
-	componentWillMount() {
-		const tab = "all";
-		const itemsPromise = agent.Items.all;
+  componentWillMount() {
+    const tab = "all";
+    const itemsPromise = agent.Items.all;
 
-		this.props.onLoad(
-			tab,
-			itemsPromise,
-			Promise.all([agent.Tags.getAll(), itemsPromise()])
-		);
-	}
+    this.props.onLoad(
+      tab,
+      itemsPromise,
+      Promise.all([agent.Tags.getAll(), itemsPromise()])
+    );
+  }
 
-	componentWillUnmount() {
-		this.props.onUnload();
-	}
+  componentWillUnmount() {
+    this.props.onUnload();
+  }
 
-	render() {
-		return (
-			<div className="home-page">
-				<Banner handleSearch={this.props.searchByTitle} />
+  render() {
+    return (
+      <div className="home-page">
+        <Banner handleSearch={this.props.searchByTitle} />
 
-				<div className="container page">
-					<Tags tags={this.props.tags} onClickTag={this.props.onClickTag} />
-					<MainView />
-				</div>
-			</div>
-		);
-	}
+        <div className="container page">
+          <Tags tags={this.props.tags} onClickTag={this.props.onClickTag} />
+          <MainView />
+        </div>
+      </div>
+    );
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
