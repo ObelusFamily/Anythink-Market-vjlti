@@ -67,6 +67,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onTabClick: (tab, pager, payload) =>
     dispatch({ type: CHANGE_TAB, tab, pager, payload }),
+  // searchByTitle: (payload, pager, tab) =>
+  // 	dispatch({ type: SEARCH_ITEMS, payload, pager,  tab  }),
 });
 
 const MainView = (props) => {
