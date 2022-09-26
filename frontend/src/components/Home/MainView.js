@@ -2,97 +2,78 @@ import ItemList from "../ItemList";
 import React from "react";
 import agent from "../../agent";
 import { connect } from "react-redux";
-import { CHANGE_TAB, SEARCH_ITEMS } from "../../constants/actionTypes";
+import { CHANGE_TAB } from "../../constants/actionTypes";
 
 const YourFeedTab = (props) => {
-  if (props.token) {
-    const clickHandler = (ev) => {
-      ev.preventDefault();
-      props.onTabClick("feed", agent.Items.feed, agent.Items.feed());
-    };
+	if (props.token) {
+		const clickHandler = (ev) => {
+			ev.preventDefault();
+			props.onTabClick("feed", agent.Items.feed, agent.Items.feed());
+		};
 
-    return (
-      <li className="nav-item">
-        <button
-          type="button"
-          className={props.tab === "feed" ? "nav-link active" : "nav-link"}
-          onClick={clickHandler}
-        >
-          Your Feed
-        </button>
-      </li>
-    );
-  }
-  return null;
+		return (
+			<li className="nav-item">
+				<button
+					type="button"
+					className={props.tab === "feed" ? "nav-link active" : "nav-link"}
+					onClick={clickHandler}
+				>
+					Your Feed
+				</button>
+			</li>
+		);
+	}
+	return null;
 };
 
 const GlobalFeedTab = (props) => {
-  const clickHandler = (ev) => {
-    ev.preventDefault();
-    props.onTabClick("all", agent.Items.all, agent.Items.all());
-  };
-  return (
-    <li className="nav-item">
-      <button
-        type="button"
-        className={props.tab === "all" ? "nav-link active" : "nav-link"}
-        onClick={clickHandler}
-      >
-        Global Feed
-      </button>
-    </li>
-  );
+	const clickHandler = (ev) => {
+		ev.preventDefault();
+		props.onTabClick("all", agent.Items.all, agent.Items.all());
+	};
+	return (
+		<li className="nav-item">
+			<button
+				type="button"
+				className={props.tab === "all" ? "nav-link active" : "nav-link"}
+				onClick={clickHandler}
+			>
+				Global Feed
+			</button>
+		</li>
+	);
 };
 
 const TagFilterTab = (props) => {
-  if (!props.tag) {
-    return null;
-  }
+	if (!props.tag) {
+		return null;
+	}
 
-  return (
-    <li className="nav-item">
-      <button type="button" className="nav-link active">
-        <i className="ion-pound"></i> {props.tag}
-      </button>
-    </li>
-  );
+	return (
+		<li className="nav-item">
+			<button type="button" className="nav-link active">
+				<i className="ion-pound"></i> {props.tag}
+			</button>
+		</li>
+	);
 };
 
-const Search = (props) => [
-	<div>
-		<input
-			style={{
-				width: "50%",
-				padding: "12px 20px",
-				margin: "8px 0",
-			}}
-			value={props?.query}
-			onChange={(ev) => {
-						ev.preventDefault();
-						props.searchByTitle(agent.Items.searchByTitle(ev.target.value));
-				// this.setState({ query: e.target.value });
-			}}
-		/>
-	</div>,
-];
 const mapStateToProps = (state) => ({
-  ...state.itemList,
-  tags: state.home.tags,
-  token: state.common.token,
+	...state.itemList,
+	tags: state.home.tags,
+	token: state.common.token,
 });
 
 const mapDispatchToProps = (dispatch) => ({
 	onTabClick: (tab, pager, payload) =>
 		dispatch({ type: CHANGE_TAB, tab, pager, payload }),
-	searchByTitle: (payload, pager, tab) =>
-		dispatch({ type: SEARCH_ITEMS, payload, pager,  tab  }),
+	// searchByTitle: (payload, pager, tab) =>
+	// 	dispatch({ type: SEARCH_ITEMS, payload, pager,  tab  }),
 });
 
 const MainView = (props) => {
- 
-  return (
+	return (
 		<div>
-			<Search searchByTitle={props.searchByTitle} />
 			<div className="feed-toggle">
 				<ul className="nav nav-tabs">
 					<YourFeedTab
