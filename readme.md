@@ -11,3 +11,32 @@ When implementing a new feature or fixing a bug, please create a new pull reques
 ## First setup
 
 **[TODO 05/01/2018 @vanessa-cooper]:** _It's been a while since anyone ran a fresh copy of this repo. I think it's worth documenting the steps needed to install and run the repo on a new machine?_
+
+## To Get Started
+
+To get started, run the following commands in your terminal
+
+```bash
+git clone git@github.com:ObelusFamily/Anythink-Market-vjlti.git
+
+cd Anythink-Market-vjlti
+
+```
+
+## Next Steps
+Install Docker and Docker Compose [here](https://docs.docker.com/get-docker/)
+
+omce docker is installed, run the following commands in your terminal from the root of the project
+
+```bash
+docker-compose up
+```
+
+also to migrate the database run the following command
+
+```bash
+docker-compose run backend rails db:migrate
+```
+
+Navigate to [http://localhost:3000/api/ping](http://localhost:3000/api/ping) to view the Backend
+and  [http://localhost:3001](http://localhost:3001) to view the Frontend
