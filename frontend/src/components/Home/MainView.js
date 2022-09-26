@@ -2,7 +2,7 @@ import ItemList from "../ItemList";
 import React from "react";
 import agent from "../../agent";
 import { connect } from "react-redux";
-import { CHANGE_TAB } from "../../constants/actionTypes";
+import { CHANGE_TAB, SEARCH_ITEMS } from "../../constants/actionTypes";
 
 const YourFeedTab = (props) => {
   if (props.token) {
@@ -58,6 +58,23 @@ const TagFilterTab = (props) => {
   );
 };
 
+const Search = (props) => [
+	<div>
+		<input
+			style={{
+				width: "50%",
+				padding: "12px 20px",
+				margin: "8px 0",
+			}}
+			value={props?.query}
+			onChange={(ev) => {
+						ev.preventDefault();
+						props.searchByTitle(agent.Items.searchByTitle(ev.target.value));
+				// this.setState({ query: e.target.value });
+			}}
+		/>
+	</div>,
+];
 const mapStateToProps = (state) => ({
   ...state.itemList,
   tags: state.home.tags,
@@ -65,36 +82,41 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onTabClick: (tab, pager, payload) =>
-    dispatch({ type: CHANGE_TAB, tab, pager, payload }),
+	onTabClick: (tab, pager, payload) =>
+		dispatch({ type: CHANGE_TAB, tab, pager, payload }),
+	searchByTitle: (payload, pager, tab) =>
+		dispatch({ type: SEARCH_ITEMS, payload, pager,  tab  }),
 });
 
 const MainView = (props) => {
+ 
   return (
-    <div>
-      <div className="feed-toggle">
-        <ul className="nav nav-tabs">
-          <YourFeedTab
-            token={props.token}
-            tab={props.tab}
-            onTabClick={props.onTabClick}
-          />
+		<div>
+			<div className="feed-toggle">
+				<ul className="nav nav-tabs">
+					<YourFeedTab
+						token={props.token}
+						tab={props.tab}
+						onTabClick={props.onTabClick}
+					/>
 
-          <GlobalFeedTab tab={props.tab} onTabClick={props.onTabClick} />
+					<GlobalFeedTab tab={props.tab} onTabClick={props.onTabClick} />
 
-          <TagFilterTab tag={props.tag} />
-        </ul>
-      </div>
+					<TagFilterTab tag={props.tag} />
+				</ul>
+			</div>
 
-      <ItemList
-        pager={props.pager}
-        items={props.items}
-        loading={props.loading}
-        itemsCount={props.itemsCount}
-        currentPage={props.currentPage}
-      />
-    </div>
-  );
+			<Search  searchByTitle={props.searchByTitle} />
+
+			<ItemList
+				pager={props.pager}
+				items={props.items}
+				loading={props.loading}
+				itemsCount={props.itemsCount}
+				currentPage={props.currentPage}
+			/>
+		</div>
+	);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainView);

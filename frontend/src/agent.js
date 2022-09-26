@@ -68,6 +68,7 @@ const Items = {
   update: (item) =>
     requests.put(`/items/${item.slug}`, { item: omitSlug(item) }),
   create: (item) => requests.post("/items", { item }),
+  searchByTitle: (title, page) => requests.get(`/items?title=${title}&${limit(1000, page)}`),
 };
 
 const Comments = {
