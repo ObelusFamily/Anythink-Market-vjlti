@@ -3,27 +3,21 @@ import agentObj from "../../agent";
 import logo from "../../imgs/logo.png";
 
 const Search = (props) => [
-	<div
+	<input
+		id="search-box"
 		style={{
-			display: "flex",
-			justifyContent: "center",
+			width: "50%",
+			padding: "12px 20px",
+			margin: "0 auto",
 		}}
-	>
-		<input
-			style={{
-				width: "50%",
-				padding: "12px 20px",
-				margin: "0 auto",
-			}}
-			placeholder="Search by title"
-			value={props?.query}
-			onChange={(ev) => {
-				ev.preventDefault();
-				props.searchByTitle(agentObj.Items.searchByTitle(ev.target.value));
-				// this.setState({ query: e.target.value });
-			}}
-		/>
-	</div>,
+		placeholder="Search by title"
+		value={props?.query}
+		onChange={(ev) => {
+			ev.preventDefault();
+			props.searchByTitle(agentObj.Items.searchByTitle(ev.target.value));
+			// this.setState({ query: e.target.value });
+		}}
+	/>,
 ];
 const Banner = (props) => {
 	return (
