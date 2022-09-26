@@ -2,9 +2,9 @@ import React from "react";
 import agentObj from "../../agent";
 import logo from "../../imgs/logo.png";
 
-const Search = (props) => [
+const SearchBox = (props) => [
 	<input
-		id="search-box"
+		id={props.id}
 		style={{
 			width: "50%",
 			padding: "12px 20px",
@@ -29,7 +29,7 @@ const Banner = (props) => {
 					<span> the cool stuff.</span>
 				</div>
 			</div>
-			<Search searchByTitle={props.handleSearch} />
+			<SearchBox id="search-box" searchByTitle={props.handleSearch} />
 		</div>
 	);
 };
