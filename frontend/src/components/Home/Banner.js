@@ -21,23 +21,24 @@ const SearchBox = (props) => [
 ];
 const Banner = (props) => {
   return (
-		<div className="banner text-white">
-			<div className="container p-4 text-center">
-				<img src={logo} alt="banner" />
-        <div style={{
-          display: "flex",
-          gap: "20px",
-          justifyContent: "center",
-          alignItems: "center",
-
-        }}>
-					<span id="get-part">A place to get</span>
-					<SearchBox id="search-box" searchByTitle={props.handleSearch} />
-					<span> the cool stuff.</span>
-				</div>
-			</div>
-		</div>
-	);
+    <div className="banner text-white">
+      <div className="container p-4 text-center">
+        <img src={logo} alt="banner" />
+        <div
+          style={{
+            display: "flex",
+            gap: "20px",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <span id="get-part">A place to get</span>
+          <SearchBox id="search-box" searchByTitle={props.handleSearch} />
+          <span> the cool stuff.</span>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Banner;
