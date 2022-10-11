@@ -14,13 +14,17 @@ const ItemList = (props) => {
   return (
     <div className="container py-2">
       <div className="row">
-        {props.items.map((item) => {
-          return (
-            <div className="col-sm-4 pb-2" key={item.slug}>
-              <ItemPreview item={item} />
-            </div>
-          );
-        })}
+        {props.items.length > 0 ? (
+          props.items.map((item) => {
+            return (
+              <div className="col-sm-4 pb-2" key={item.slug}>
+                <ItemPreview item={item} />
+              </div>
+            );
+          })
+        ) : (
+          <div id="empty">No items are here... yet.</div>
+        )}
       </div>
 
       <ListPagination
